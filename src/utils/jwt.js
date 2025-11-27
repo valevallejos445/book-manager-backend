@@ -1,17 +1,9 @@
 // src/utils/jwt.js
 const jwt = require('jsonwebtoken');
 
-const generateToken = (payload, expiresIn = process.env.JWT_EXPIRES_IN) => {
-  // Aseguramos que expiresIn sea un número (en segundos)
-  const expiresInSeconds = typeof expiresIn === 'string'
-    ? parseInt(expiresIn, 10)
-    : expiresIn;
-
-  if (isNaN(expiresInSeconds)) {
-    throw new Error('"expiresIn" debe ser un número de segundos');
-  }
-
-  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: expiresInSeconds });
+const generateToken = (payload) => {
+  // Usamos el valor directamente: 7 días = 604800 segundos
+  return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: 604800 });
 };
 
 const verifyToken = (token) => {
