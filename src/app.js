@@ -8,10 +8,11 @@ require('dotenv').config();
 
 const app = express();
 
-// Middlewares
+// Middlewares de seguridad y parsing
 app.use(helmet());
 app.use(cors({
-  origin: process.env.FRONTEND_URL || '*'  // Permití tu frontend o todos si no está configurado
+  origin: process.env.FRONTEND_URL || '*',
+  credentials: true // ← Permite el envío de cookies y headers de autorización
 }));
 app.use(morgan('dev'));
 app.use(express.json({ limit: '10mb' }));
